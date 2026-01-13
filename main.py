@@ -35,7 +35,7 @@ def main():
         log_state()
         for event in pygame.event.get():
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
-                print('Exiting game')
+                print('Exiting game', "Score: ", score.total)
                 return
         # Start display draw
         screen.fill('black')
@@ -53,7 +53,7 @@ def main():
                     
             if aster.collides_with(player):
                 log_event("player_hit")
-                print("Game over!")
+                print(f"Game over! Score: {score.total}")
                 sys.exit()
         # Draw Sprites
         for sprite in drawable:
