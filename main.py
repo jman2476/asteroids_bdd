@@ -1,5 +1,6 @@
+import sys
 import pygame
-from logger import log_state
+from logger import log_state, log_event
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from player import Player
 from asteroid import Asteroid
@@ -35,10 +36,16 @@ def main():
         # Start display draw
         screen.fill('black')
         delta_time = clock.tick(60)/1000
-        # Update and draw sprites
+        # Update sprites
         for sprite in updatable:
             sprite.update(delta_time)
-
+        # Check Collision
+        for aster in asteroids:
+            if aster.collides_with(player):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
+        # Draw Sprites
         for sprite in drawable:
             sprite.draw(screen)
 
