@@ -26,7 +26,7 @@ def main():
     Asteroid.containers = (asteroids, updatable, drawable)
     Player.containers = (updatable, drawable);
     AsteroidField.containers = (updatable)
-    Shot.containers = (updatable, drawable)
+    Shot.containers = (shots, updatable, drawable)
     # Object initialization
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     asteroid_field = AsteroidField()
@@ -44,6 +44,12 @@ def main():
             sprite.update(delta_time)
         # Check Collision
         for aster in asteroids:
+            for shot in shots:
+                if aster.collides_with(shot):
+                    log_event('asteroid_shot')
+                    aster.split()
+                    shot.kill()
+                    
             if aster.collides_with(player):
                 log_event("player_hit")
                 print("Game over!")
