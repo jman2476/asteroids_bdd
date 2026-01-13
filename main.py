@@ -6,6 +6,7 @@ from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
+from score import Score
 def main():
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
@@ -16,7 +17,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     delta_time = 0
-
+    score = Score()
     # Group initialization
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
@@ -34,7 +35,7 @@ def main():
         log_state()
         for event in pygame.event.get():
             if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
-                print('Exiting game')
+                print('Exiting game', "Score: ", score.total)
                 return
         # Start display draw
         screen.fill('black')
@@ -47,17 +48,17 @@ def main():
             for shot in shots:
                 if aster.collides_with(shot):
                     log_event('asteroid_shot')
-                    aster.split()
+                    aster.split(score)
                     shot.kill()
                     
             if aster.collides_with(player):
                 log_event("player_hit")
-                print("Game over!")
+                print(f"Game over! Score: {score.total}")
                 sys.exit()
         # Draw Sprites
         for sprite in drawable:
             sprite.draw(screen)
-
+        score.draw(screen)
         # Refresh display
         pygame.display.flip()
 
