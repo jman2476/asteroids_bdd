@@ -18,7 +18,7 @@ def main():
     while True:
         log_state()
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT or pygame.key.get_pressed()[pygame.K_ESCAPE]:
                 print('Exiting game')
                 return
         # Start display draw
