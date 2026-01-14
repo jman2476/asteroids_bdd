@@ -58,8 +58,12 @@ class Player(CircleShape):
             self.shoot()
 
         if keys[pygame.K_g] or keys[pygame.K_h]:
+            # double shot
             self.double_shot()
-
+        
+        if keys[pygame.K_t] or keys[pygame.K_y]:
+            # triple shot
+            self.triple_shot()
     def shoot(self):
         if self.cooldown > 0:
             return
@@ -77,3 +81,14 @@ class Player(CircleShape):
         shot_two = Shot(self.position[0], self.position[1])
         shot_two.velocity = pygame.Vector2(0,1).rotate(self.rotation - angle) * PLAYER_SHOOT_SPEED
 
+    def triple_shot(self):
+        if self.cooldown > 0:
+            return
+        self.cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS * 2.7
+        shot_one = Shot(self.position[0], self.position[1])
+        shot_one.velocity = pygame.Vector2(0,1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+        shot_two = Shot(self.position[0], self.position[1])
+        shot_two.velocity = pygame.Vector2(0,1).rotate(self.rotation - 5) * PLAYER_SHOOT_SPEED
+        shot_three = Shot(self.position[0], self.position[1])
+        shot_three.velocity = pygame.Vector2(0,1).rotate(self.rotation + 5) * PLAYER_SHOOT_SPEED
+          
