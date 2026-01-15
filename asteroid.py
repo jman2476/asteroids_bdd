@@ -4,6 +4,7 @@ from circleshape import CircleShape
 from constants import LINE_WIDTH, ASTEROID_MIN_RADIUS
 from logger import log_event
 from score import Score
+from debris import Debris
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
@@ -30,3 +31,7 @@ class Asteroid(CircleShape):
         aster2 = Asteroid(pos_x, pos_y, new_radius)
         aster1.velocity = new_v1
         aster2.velocity = new_v2
+
+    def explode(self):
+        (center_x, center_y) = (self.position[0], self.position[1])
+        debris = Debris(center_x, center_y, self.radius)

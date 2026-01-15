@@ -7,6 +7,8 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from shot import Shot
 from score import Score
+from debris import Debris
+from debrisfield import DebrisField
 def main():
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
@@ -24,11 +26,13 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     shots = pygame.sprite.Group()
+    debris_fields = pygame.sprite.Group()
     # Set groups
     Asteroid.containers = (asteroids, updatable, drawable)
     Player.containers = (updatable, drawable);
     AsteroidField.containers = (updatable)
     Shot.containers = (shots, updatable, drawable)
+    DebrisField.containers = (debris_fields, updatable, drawable)
     # Object initialization
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     asteroid_field = AsteroidField()
